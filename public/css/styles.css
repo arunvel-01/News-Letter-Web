@@ -1,0 +1,69 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: #343a40; /* Dark grey background */
+  color: #fff; /* Text color in dark mode */
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="text"],
+.form-signin input[type="email"] {
+  height: 50px;
+  border-radius: 5px; /* Reduce border-radius */
+  color: #fff; /* Text color in dark mode */
+  background-color: #454d55; /* Darker grey background for input fields */
+  margin-bottom: 10px; /* Lower the text input button */
+  width: 100%; /* Set the width to 100% to align correctly */
+  border-color: rgba(255, 255, 255, 0.6); /* Reduced line opacity */
+}
+
+.form-signin input[type="email"] {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.form-signin button[type="submit"] {
+  height: 50px;
+  transition: all 0.2s;
+  background-color: #007bff; /* Blue color for the button */
+  border-color: #007bff;
+  width: 100%; /* Set the width to 100% to align correctly */
+  border-radius: 5px; /* Reduce border-radius */
+}
+
+.form-signin button[type="submit"]:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
+}
+
+.form-signin button[type="submit"]:active {
+  background-color: #0056b3; /* Darker blue color on click */
+  transform: scale(0.95);
+}
+
+/* Additional styles for the dark theme */
+.form-signin label {
+  color: #fff; /* Label text color in dark mode */
+}
+
+/* Additional styles to move logo to the top of the form */
+.signup-logo {
+  text-align: center;
+  margin-bottom: 10px; /* Reduce the margin to create less space between logo and form */
+}
+
+.signup-logo img {
+  width: 80px; /* Adjust the width of the logo */
+  height: 80px; /* Adjust the height of the logo */
+}
