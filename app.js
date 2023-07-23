@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.get("/", function(req,res){
-    res.sendFile(__dirname + "/signup.html");
+    res.sendFile(__dirname + "/index.html");
 });
 
 app.post("/", function(req,res){
@@ -34,7 +34,7 @@ app.post("/", function(req,res){
     const url = "https://us14.api.mailchimp.com/3.0/lists/0888baa758"; 
     const options = {
         method: "POST",
-        auth: "Arunvel:67d93a12a476f8adae382947db1cef20-us14"
+        auth: "Arunvel:cf1d8475569edada3a3c4f374a255278-us14"
     };
    const mailchimpRequest =  https.request(url, options, function(response){
     if (response.statusCode === 200){
@@ -56,7 +56,7 @@ app.post("/failure", function(req,res){
     res.redirect("/")
 })
 
-app.listen(process.env.PORT || 3000 , function(){
+app.listen(3000 , function(){
     console.log("Server is running on port 3000.");
 });
 
