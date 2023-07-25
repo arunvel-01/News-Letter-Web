@@ -1,65 +1,65 @@
 const express = require("express");
-const request  = require("request");
+const request = require("request");
 const bodyParser = require("body-parser");
 const https = require("https");
 
 const app = express();
 
-
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+// Get the Mailchimp API key from the environment variable
+const mailchimpApiKey = process.env.MAILCHIMP_API_KEY;
 
-app.get("/", function(req,res){
-    res.sendFile(__dirname + "/index.html");
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/index.html");
 });
 
-app.post("/", function(req,res){
-    const firstName = req.body.fName;
-    const lastName = req.body.lName;
-    const email = req.body.email;
-    const data = {
-        members: [
-            {
-                email_address: email,
-                status: "subscribed",
-                merge_fields: {
-                    FNAME: firstName,
-                    LNAME: lastName,
-                }            
-            }
-        ]
-    };
-    const jsonData = JSON.stringify(data);
-    const url = "https://us14.api.mailchimp.com/3.0/lists/0888baa758"; 
-    const options = {
-        method: "POST",
-        auth: "Arunvel:"Your api id"
-    };
-   const mailchimpRequest =  https.request(url, options, function(response){
-    if (response.statusCode === 200){
-        res.sendFile(__dirname + "/success.html")
-    } else{
-        res.sendFile(__dirname + "/failure.html");
+app.post("/", function (req, res) {
+  const firstName = req.body.fName;
+  const lastName = req.body.lName;
+  const email = req.body.email;
+  const data = {
+    members: [
+      {
+        email_address: email,
+        status: "subscribed",
+        merge_fields: {
+          FNAME: firstName,
+          LNAME: lastName,
+        },
+      },
+    ],
+  };
+  const jsonData = JSON.stringify(data);
+  const url = "https://us14.api.mailchimp.com/3.0/lists/0888baa758";
+  const options = {
+    method: "POST",
+    auth: `Arunvel:${mailchimpApiKey}`, // Use the environment variable
+  };
+  const mailchimpRequest = https.request(url, options, function (response) {
+    if (response.statusCode === 200) {
+      res.sendFile(__dirname + "/success.html");
+    } else {
+      res.sendFile(__dirname + "/failure.html");
     }
 
-        response.on("data", function(data){
-            console.log(JSON.parse(data));
-        });
+    response.on("data", function (data) {
+      console.log(JSON.parse(data));
     });
-   
+  });
+
   mailchimpRequest.write(jsonData);
   mailchimpRequest.end();
 });
 
-app.post("/failure", function(req,res){
-    res.redirect("/")
-})
-
-app.listen(process.env.PORT || 3000 , function(){
-    console.log("Server is running on port 3000.");
+app.post("/failure", function (req, res) {
+  res.redirect("/");
 });
 
+// Use process.env.PORT if it's defined (for hosting platforms), or use 3000 for local development
+const port = process.env.PORT || 3000;
 
-
-
+app.listen(port, function () {
+  console.log(`Server is running on port ${port}.`);
+});
