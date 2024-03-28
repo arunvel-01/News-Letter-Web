@@ -35,7 +35,7 @@ app.post("/", function(req,res){
     const url = "https://us14.api.mailchimp.com/3.0/lists/0888baa758"; 
     const options = {
         method: "POST",
-        auth: "Arunvel:cf1d8475569edada3a3c4f374a255278-us14"
+        auth: `Arunvel:${process.env.MAILCHIMP_API_KEY}`,
     };
    const mailchimpRequest =  https.request(url, options, function(response){
     if (response.statusCode === 200){
