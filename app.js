@@ -3,6 +3,7 @@ const request = require("request");
 const bodyParser = require("body-parser");
 const https = require("https");
 const dotenv = require("dotenv");
+const { job } = require('./cron');
 
 const app = express();
 
@@ -55,7 +56,9 @@ app.post("/", function(req,res){
 
 app.post("/failure", function(req,res){
     res.redirect("/")
-})
+});
+
+job.start();
 
 const port = process.env.PORT || 3000;
 app.listen(port, function () {
